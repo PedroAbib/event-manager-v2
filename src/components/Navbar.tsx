@@ -11,7 +11,7 @@ export function Navbar() {
   return (
     <nav className="fixed left-0 top-0 h-full w-64 bg-white dark:bg-gray-900 shadow-lg">
       <div className="p-6">
-        <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-8">Placeholder</h2>
+        <h2 className="text-2xl font-bold text-gray-800 dark:text-white mb-8">Logo Placeholder</h2>
         <ul className="space-y-2">
           {navItems.map((item) => (
             <li key={item.path}>
