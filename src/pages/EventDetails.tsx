@@ -1,5 +1,5 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { Event, Participant } from '../types';
+import { IEvent, IParticipant } from '../types';
 
 import { ParticipantsList } from '../components/ParticipantsList';
 import { ArrowLeft } from "lucide-react";
@@ -9,7 +9,7 @@ export function EventDetails() {
   const navigate = useNavigate();
 
   // TODO: Replace with actual API call
-  const event: Event = {
+  const event: IEvent = {
     id: id ?? '1',
     title: 'Tech Conference 2024',
     description: 'Annual technology conference',
@@ -23,7 +23,7 @@ export function EventDetails() {
   };
 
   // TODO: Replace with actual API call
-  const participants: Participant[] = [
+  const participants: IParticipant[] = [
     {
       id: '1',
       eventId: event.id,
