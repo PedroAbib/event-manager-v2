@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Event } from '../types';
 import { useNavigate } from 'react-router-dom';
-import { LuArrowUpDown } from 'react-icons/lu';
+import { ArrowUpDown } from "lucide-react";
 
 interface EventsListProps {
   events: Event[];
@@ -56,7 +56,7 @@ export function EventsList({ events }: EventsListProps) {
     >
       <div className="flex items-center space-x-1">
         <span>{label}</span>
-        <LuArrowUpDown 
+        <ArrowUpDown 
           className={`w-4 h-4 ${
             sortField === field 
               ? sortDirection === 'desc'
