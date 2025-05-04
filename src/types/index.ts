@@ -1,4 +1,4 @@
-export interface Event {
+export interface IEvent {
   id: string;
   title: string;
   description: string;
@@ -11,7 +11,7 @@ export interface Event {
   updatedAt: Date;
 }
 
-export interface Registration {
+export interface IRegistration {
   id: string;
   fullName: string;
   tagName: string;
@@ -24,7 +24,7 @@ export interface Registration {
   updatedAt: Date;
 }
 
-export interface Participant {
+export interface IParticipant {
   id: string;
   eventId: string;
   attendeeId: string;

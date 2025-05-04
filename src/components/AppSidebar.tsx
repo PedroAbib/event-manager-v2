@@ -27,12 +27,15 @@ export function AppSidebar() {
   
   return (
     <Sidebar collapsible='icon'>
-      <SidebarHeader className="flex  justify-between">
-        <div className="flex items-center">
-          <SidebarTrigger className="w-10 h-10 min-w-10 min-h-10"/>
-          {state === "expanded" && (
-            <h2 className="text-xl font-bold p-2">Event Manager</h2>
-          )}
+      <SidebarHeader className="flex justify-between">
+        <div className="flex items-center gap-3">
+          <SidebarTrigger className="w-9 h-9 min-w-9 min-h-9"/>
+          <h2 className={cn(
+            "text-xl font-bold p-2",
+            "transition-all duration-300 ease-in-out",
+            "whitespace-nowrap overflow-hidden",
+            state === "collapsed" ? "opacity-0 max-w-0 px-0" : "opacity-100 max-w-full"
+          )}>Event Manager</h2>
         </div>
       </SidebarHeader>
       <SidebarContent>
@@ -48,11 +51,22 @@ export function AppSidebar() {
                         tooltip={item.label} 
                         className={cn(
                           "cursor-pointer h-10 text-base",
-                          "flex items-center gap-2"
+                          "flex items-center gap-2",
+                          state === "collapsed" && "justify-center"
                         )}
                       >
-                        <item.icon className='w-5 h-5 min-w-5 min-h-5'/>
-                        <span className="font-medium">{item.label}</span>
+                        <item.icon className={cn(
+                          'w-5 h-5 min-w-5 min-h-5 transition-all duration-200',
+                          isActive 
+                            ? 'text-green-400 drop-shadow-[0_0_8px_rgba(74,222,128,0.5)] filter brightness-125' 
+                            : 'opacity-60'
+                        )}/>
+                        <span className={cn(
+                          "font-medium",
+                          state === "collapsed" && "hidden"
+                        )}>
+                          {item.label}
+                        </span>
                       </SidebarMenuButton>
                     )}
                   </NavLink>

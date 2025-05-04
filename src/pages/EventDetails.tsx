@@ -1,14 +1,15 @@
 import { useParams, useNavigate } from 'react-router-dom';
-import { Event, Participant } from '../types';
-import { LuArrowLeft } from 'react-icons/lu';
+import { IEvent, IParticipant } from '../types';
+
 import { ParticipantsList } from '../components/ParticipantsList';
+import { ArrowLeft } from "lucide-react";
 
 export function EventDetails() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
 
   // TODO: Replace with actual API call
-  const event: Event = {
+  const event: IEvent = {
     id: id ?? '1',
     title: 'Tech Conference 2024',
     description: 'Annual technology conference',
@@ -22,7 +23,7 @@ export function EventDetails() {
   };
 
   // TODO: Replace with actual API call
-  const participants: Participant[] = [
+  const participants: IParticipant[] = [
     {
       id: '1',
       eventId: event.id,
@@ -187,7 +188,7 @@ export function EventDetails() {
         onClick={() => navigate('/events')}
         className="flex items-center mb-2 text-gray-600 dark:text-gray-400 hover:text-gray-800 dark:hover:text-gray-200 transition-colors cursor-pointer"
       >
-        <LuArrowLeft className="mr-2" />
+        <ArrowLeft className="mr-2" />
         Back to Events
       </button>
 
