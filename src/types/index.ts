@@ -1,12 +1,10 @@
 export interface IEvent {
   id: string;
   title: string;
-  description: string;
+  imageUrl: string;
   date: Date;
   location: string;
-  capacity: number;
-  price: number;
-  status: 'draft' | 'ongoing' | 'finished';
+  status: 'coming-soon' | 'ongoing' | 'finished';
   createdAt: Date;
   updatedAt: Date;
 }

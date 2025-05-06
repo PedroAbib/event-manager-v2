@@ -4,7 +4,7 @@ import { AppSidebar } from "./components/AppSidebar";
 import { Home } from "./pages/Home";
 import { Registrations } from "./pages/Registrations";
 import { Events } from "./pages/Event/Events";
-import { EventDetails } from "./pages/EventDetails";
+import { EventDetails } from "./pages/Event/EventDetails";
 import { ThemeProvider } from "./components/theme-provider";
 
 function App() {

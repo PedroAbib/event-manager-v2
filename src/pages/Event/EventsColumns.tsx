@@ -4,6 +4,7 @@ import { ColumnDef } from "@tanstack/react-table";
 import { IEvent } from "../../types";
 import { ArrowUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
 
 const SortableHeader = ({ column, title }: { column: any; title: string }) => {
   return (
@@ -47,24 +48,41 @@ export const EventsColumns: ColumnDef<IEvent>[] = [
     header: "Location",
   },
   {
-    accessorKey: "capacity",
-    header: "Capacity",
-  },
-  {
-    accessorKey: "price",
-    header: "Price",
-    cell: ({ row }) => {
-      const price = parseFloat(row.getValue('price'))
-      const formatted = new Intl.NumberFormat('en-US', {
-        style: 'currency',
-        currency: 'USD',
-      }).format(price)
-
-      return <div className="text-left font-medium">{formatted}</div>
-    }
-  },
-  {
     accessorKey: "status",
     header: ({ column }) => <SortableHeader column={column} title="Status" />,
+    cell: ({ row }) => {
+      const status = row.getValue('status') as string;
+      
+      let variant: 'default' | 'secondary' | 'destructive' | 'outline';
+      let className = '';
+      
+      switch(status) {
+        case 'ongoing':
+          variant = 'default';
+          className = 'bg-green-700 hover:bg-green-800 text-white';
+          break;
+        case 'coming-soon':
+          variant = 'secondary';
+          className = 'bg-blue-500 hover:bg-blue-600 text-white';
+          break;
+        case 'finished':
+          variant = 'secondary';
+          className = '';
+          break;
+        default:
+          variant = 'default';
+      }
+      
+      const formattedStatus = status
+        .split('-')
+        .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+        .join(' ');
+      
+      return (
+        <Badge variant={variant} className={className}>
+          {formattedStatus}
+        </Badge>
+      );
+    }
   },
 ];
