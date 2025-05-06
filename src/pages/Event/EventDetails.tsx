@@ -10,7 +10,7 @@ import {
   Trash2
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { 
   AlertDialog,
@@ -23,6 +23,8 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
 import { EventForm } from './EventForm';
+import { DataTable } from '@/components/ui/data-table';
+import { ParticipantsColumns } from '../ParticipantsColumns';
 
 export function EventDetails() {
   const { id } = useParams<{ id: string }>();
@@ -70,7 +72,58 @@ export function EventDetails() {
         phone: '+1 234-567-8901'
       }
     },
-    // Add more participants as needed
+    {
+      id: '3',
+      eventId: event.id,
+      attendeeId: 'att3',
+      status: 'confirmed',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      attendeeDetails: {
+        name: 'Michael Johnson',
+        email: 'michael@example.com',
+        phone: '+1 234-567-8902'
+      }
+    },
+    {
+      id: '4',
+      eventId: event.id,
+      attendeeId: 'att4',
+      status: 'cancelled',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      attendeeDetails: {
+        name: 'Emily Davis',
+        email: 'emily@example.com',
+        phone: '+1 234-567-8903'
+      }
+    },
+    {
+      id: '5',
+      eventId: event.id,
+      attendeeId: 'att5',
+      status: 'confirmed',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      attendeeDetails: {
+        name: 'Robert Wilson',
+        email: 'robert@example.com',
+        phone: '+1 234-567-8904'
+      }
+    },
+    {
+      id: '6',
+      eventId: event.id,
+      attendeeId: 'att6',
+      status: 'pending',
+      createdAt: new Date(),
+      updatedAt: new Date(),
+      attendeeDetails: {
+        name: 'Sarah Brown',
+        email: 'sarah@example.com',
+        phone: '+1 234-567-8905'
+      }
+    }
   ];
 
   const handleEditEvent = () => {
@@ -91,10 +144,10 @@ export function EventDetails() {
     // TODO: Implement actual update API call
     console.log('Updated event:', updatedEvent);
     setIsEditModalOpen(false);
-    // In a real app, you would update the state or refetch the event
+    // Later, update the state or refetch the event
   };
 
-  // Helper function to render status badge
+  // Helper function to render status badge (I may move this to a separate file)
   const renderStatusBadge = (status: string) => {
     let variant: 'default' | 'secondary' | 'destructive' | 'outline';
     let className = '';
@@ -207,7 +260,7 @@ export function EventDetails() {
 
       {/* Participants Section */}
       <div className="space-y-4">
-        <div className="flex items-center justify-between">
+        <div className="flex items-center justify-between m-0">
           <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-200">
             Participants
           </h2>
@@ -217,72 +270,12 @@ export function EventDetails() {
           </Button>
         </div>
         
-        <Card>
-          <CardContent className="p-0">
-            <div className="overflow-x-auto">
-              <table className="w-full">
-                <thead>
-                  <tr className="border-b border-gray-200 dark:border-gray-700">
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                      Name
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                      Email
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                      Phone
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                      Status
-                    </th>
-                    <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                      Actions
-                    </th>
-                  </tr>
-                </thead>
-                <tbody className="divide-y divide-gray-200 dark:divide-gray-700">
-                  {participants.map((participant) => (
-                    <tr key={participant.id} className="hover:bg-gray-50 dark:hover:bg-gray-800">
-                      <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-200">
-                        {participant.attendeeDetails.name}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                        {participant.attendeeDetails.email}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                        {participant.attendeeDetails.phone || '-'}
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm">
-                        <Badge className={
-                          participant.status === 'confirmed' ? 'bg-green-100 text-green-800' :
-                          participant.status === 'pending' ? 'bg-yellow-100 text-yellow-800' :
-                          'bg-red-100 text-red-800'
-                        }>
-                          {participant.status.charAt(0).toUpperCase() + participant.status.slice(1)}
-                        </Badge>
-                      </td>
-                      <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500 dark:text-gray-300">
-                        <div className="flex gap-2">
-                          <Button variant="ghost" size="sm">
-                            <Edit className="h-4 w-4" />
-                          </Button>
-                          <Button variant="ghost" size="sm">
-                            <Trash2 className="h-4 w-4" />
-                          </Button>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              {participants.length === 0 && (
-                <div className="text-center py-8 text-gray-500 dark:text-gray-400">
-                  No participants registered yet.
-                </div>
-              )}
-            </div>
-          </CardContent>
-        </Card>
+        <DataTable
+          columns={ParticipantsColumns}
+          data={participants} 
+          searchColumn="attendeeDetails.name"
+          searchPlaceholder="Search participants..."
+        />
       </div>
 
       {/* Edit Event Modal */}
