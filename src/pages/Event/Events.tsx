@@ -1,98 +1,150 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { IEvent } from "@/types";
 import { DataTable } from "@/components/ui/data-table";
 import { EventsColumns } from "./EventsColumns";
+import { Button } from "@/components/ui/button";
+import { PlusCircle } from "lucide-react";
+import { EventForm } from "./EventForm";
 
 function getEvents(): IEvent[] {
-    return [
-        {
-          id: '1',
-          title: 'Tech Conference 2024',
-          description: 'Annual technology conference featuring the latest innovations in AI and cloud computing',
-          date: new Date('2024-06-15'),
-          location: 'San Francisco Convention Center',
-          capacity: 500,
-          price: 299.99,
-          status: 'ongoing',
-          createdAt: new Date('2023-12-01'),
-          updatedAt: new Date('2024-01-15'),
-        },
-        {
-          id: '2',
-          title: 'Digital Marketing Summit',
-          description: 'Expert insights on SEO, social media, and content marketing strategies',
-          date: new Date('2024-04-22'),
-          location: 'New York Hilton',
-          capacity: 300,
-          price: 199.99,
-          status: 'draft',
-          createdAt: new Date('2023-11-15'),
-          updatedAt: new Date('2024-01-10'),
-        },
-        {
-          id: '3',
-          title: 'Startup Pitch Night',
-          description: 'Emerging startups showcase their innovative solutions to investors',
-          date: new Date('2024-03-30'),
-          location: 'Austin Innovation Hub',
-          capacity: 150,
-          price: 49.99,
-          status: 'ongoing',
-          createdAt: new Date('2023-12-20'),
-          updatedAt: new Date('2024-01-05'),
-        },
-        {
-          id: '4',
-          title: 'Web3 Developer Workshop',
-          description: 'Hands-on workshop on blockchain development and smart contracts',
-          date: new Date('2024-05-10'),
-          location: 'Miami Tech Center',
-          capacity: 100,
-          price: 399.99,
-          status: 'draft',
-          createdAt: new Date('2023-11-30'),
-          updatedAt: new Date('2024-01-20'),
-        },
-        {
-          id: '5',
-          title: 'UX Design Conference',
-          description: 'Latest trends and best practices in user experience design',
-          date: new Date('2024-07-05'),
-          location: 'Seattle Design Hub',
-          capacity: 250,
-          price: 249.99,
-          status: 'ongoing',
-          createdAt: new Date('2023-12-10'),
-          updatedAt: new Date('2024-01-12'),
-        },
-        {
-          id: '6',
-          title: 'Data Science Symposium',
-          description: 'Advanced analytics, machine learning, and data visualization techniques',
-          date: new Date('2024-08-20'),
-          location: 'Boston University',
-          capacity: 400,
-          price: 349.99,
-          status: 'finished',
-          createdAt: new Date('2023-11-25'),
-          updatedAt: new Date('2024-01-18'),
-        }
-];
+  return [
+    {
+      id: '1',
+      title: 'Tech Conference 2024',
+      imageUrl: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070',
+      date: new Date('2024-06-15'),
+      location: 'San Francisco Convention Center',
+      status: 'ongoing',
+      createdAt: new Date('2023-12-01'),
+      updatedAt: new Date('2024-01-15'),
+    },
+    {
+      id: '2',
+      title: 'Digital Marketing Summit',
+      imageUrl: 'https://images.unsplash.com/photo-1591115765373-5207764f72e4?q=80&w=2070',
+      date: new Date('2024-04-22'),
+      location: 'New York Hilton',
+      status: 'coming-soon',
+      createdAt: new Date('2023-11-15'),
+      updatedAt: new Date('2024-01-10'),
+    },
+    {
+      id: '3',
+      title: 'Startup Pitch Night',
+      imageUrl: 'https://images.unsplash.com/photo-1551818255-e6e10975bc17?q=80&w=2073',
+      date: new Date('2024-03-30'),
+      location: 'Austin Innovation Hub',
+      status: 'ongoing',
+      createdAt: new Date('2023-12-20'),
+      updatedAt: new Date('2024-01-05'),
+    },
+    {
+      id: '4',
+      title: 'Web3 Developer Workshop',
+      imageUrl: 'https://images.unsplash.com/photo-1558403194-611308249627?q=80&w=2070',
+      date: new Date('2024-05-10'),
+      location: 'Miami Tech Center',
+      status: 'coming-soon',
+      createdAt: new Date('2023-11-30'),
+      updatedAt: new Date('2024-01-20'),
+    },
+    {
+      id: '5',
+      title: 'UX Design Conference',
+      imageUrl: 'https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071',
+      date: new Date('2024-07-05'),
+      location: 'Seattle Design Hub',
+      status: 'ongoing',
+      createdAt: new Date('2023-12-10'),
+      updatedAt: new Date('2024-01-12'),
+    },
+    {
+      id: '6',
+      title: 'Data Science Symposium',
+      imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070',
+      date: new Date('2024-08-20'),
+      location: 'Boston University',
+      status: 'finished',
+      createdAt: new Date('2023-11-25'),
+      updatedAt: new Date('2024-01-18'),
+    },
+    {
+      id: '7',
+      title: 'AI Ethics Forum',
+      imageUrl: 'https://images.unsplash.com/photo-1526378722484-bd91ca387e72?q=80&w=2069',
+      date: new Date('2024-09-12'),
+      location: 'Toronto Convention Center',
+      status: 'coming-soon',
+      createdAt: new Date('2024-01-05'),
+      updatedAt: new Date('2024-02-10'),
+    },
+    {
+      id: '8',
+      title: 'Cybersecurity Summit',
+      imageUrl: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2070',
+      date: new Date('2024-10-18'),
+      location: 'Chicago Tech Campus',
+      status: 'coming-soon',
+      createdAt: new Date('2024-01-15'),
+      updatedAt: new Date('2024-02-20'),
+    }
+  ];
 }
 
 export function Events() {
-    const [events, setEvents] = useState<IEvent[]>([]);
-    
-    useEffect(() => {
-        const eventData = getEvents();
-        setEvents(eventData);
-        console.log(eventData);
-    }, []);
+  const [events, setEvents] = useState<IEvent[]>([]);
+  const [isAddModalOpen, setIsAddModalOpen] = useState(false);
+  const navigate = useNavigate();
+  
+  useEffect(() => {
+    const eventData = getEvents();
+    setEvents(eventData);
+  }, []);
 
-    return (
-        <div className="container mx-auto p-4">
-            <h1 className="text-2xl font-bold mb-4">Events</h1>
-            <DataTable columns={EventsColumns} data={events} />
-        </div>
-    );
+  const handleRowClick = (event: IEvent) => {
+    navigate(`/events/${event.id}`);
+  };
+
+  const handleAddNew = () => {
+    setIsAddModalOpen(true);
+  };
+
+  const handleSaveEvent = (event: IEvent) => {
+    // In a real app, you would make an API call here
+    // For now, we'll just add it to our local state
+    setEvents(prevEvents => [event, ...prevEvents]);
+    setIsAddModalOpen(false);
+  };
+
+  return (
+    <div>
+      <div className="flex justify-between items-center">
+        <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-200">Events</h1>
+        <Button 
+          onClick={handleAddNew}
+          className="flex items-center gap-2 bg-green-700 hover:bg-green-600 text-white"
+        >
+          <PlusCircle className="h-4 w-4" />
+          Add New Event
+        </Button>
+      </div>
+      
+      <DataTable 
+        columns={EventsColumns} 
+        data={events} 
+        onRowClick={handleRowClick}
+        searchColumn="title"
+        searchPlaceholder="Search events..."
+      />
+      
+      <EventForm
+        open={isAddModalOpen}
+        onClose={() => setIsAddModalOpen(false)}
+        onSave={handleSaveEvent}
+      />
+    </div>
+  );
 }
+
+
