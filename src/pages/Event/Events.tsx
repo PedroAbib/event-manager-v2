@@ -6,7 +6,6 @@ import { EventsColumns } from "./EventsColumns";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import { EventForm } from "./EventForm";
-import { DatePickerWithRange } from "@/components/date-picker-range";
 
 function getEvents(): IEvent[] {
   return [
