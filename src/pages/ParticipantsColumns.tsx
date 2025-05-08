@@ -28,13 +28,33 @@ const SortableHeader = ({ column, title }: { column: any; title: string }) => {
 // TODO: This is a temporary solution. I may change it later.
 export const ParticipantsColumns: ColumnDef<IParticipant>[] = [
   {
-    accessorKey: "attendeeDetails.name",
+    accessorKey: "fullName",
     header: ({ column }) => <SortableHeader column={column} title="Name" />,
     enableHiding: false,
   },
   {
-    accessorKey: "attendeeDetails.email",
+    accessorKey: "email",
     header: "Email",
+  },
+  {
+    accessorKey: "phoneNumber",
+    header: "Phone",
+    cell: ({ row }) => {
+      return row.getValue("phoneNumber") || "-";
+    }
+  },
+  {
+    accessorKey: "isPaid",
+    header: "Payment",
+    cell: ({ row }) => {
+      const isPaid = row.getValue("isPaid") as boolean;
+      
+      return (
+        <Badge variant={isPaid ? "default" : "outline"} className={isPaid ? "bg-green-700 text-white" : ""}>
+          {isPaid ? "Paid" : "Unpaid"}
+        </Badge>
+      );
+    }
   },
   {
       accessorKey: "status",
