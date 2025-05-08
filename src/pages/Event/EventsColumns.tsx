@@ -32,15 +32,23 @@ export const EventsColumns: ColumnDef<IEvent>[] = [
     enableHiding: false,
   },
   {
-    accessorKey: "date",
+    accessorKey: "dateFrom",
     header: ({ column }) => <SortableHeader column={column} title="Date" />,
     cell: ({ row }) => {
-      const date = row.getValue('date') as Date;
-      return new Intl.DateTimeFormat('en-US', {
-        year: 'numeric',
-        month: 'short',
-        day: 'numeric'
-      }).format(date);
+      const dateFrom = row.getValue('dateFrom') as Date;
+      const dateTo = row.original.dateTo as Date | undefined;
+      
+      const formatDate = (date: Date) => {
+        return new Intl.DateTimeFormat('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        }).format(date);
+      };
+      
+      return dateTo 
+        ? `${formatDate(dateFrom)} - ${formatDate(dateTo)}`
+        : formatDate(dateFrom);
     }
   },
   {

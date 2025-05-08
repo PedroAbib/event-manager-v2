@@ -17,6 +17,8 @@ import {
   DialogTitle, 
   DialogFooter 
 } from "@/components/ui/dialog";
+import { DatePickerWithRange } from "@/components/date-picker-range";
+import { DateRange } from "react-day-picker";
 
 interface EventFormProps {
   open: boolean;
@@ -37,8 +39,12 @@ export function EventForm({
     title: initialData.title || '',
     imageUrl: initialData.imageUrl || '',
     location: initialData.location || '',
-    date: initialData.date ? new Date(initialData.date).toISOString().split('T')[0] : '',
     status: initialData.status || 'coming-soon' as 'coming-soon' | 'ongoing' | 'finished'
+  });
+
+  const [dateRange, setDateRange] = useState<DateRange | undefined>({
+    from: initialData.dateFrom ? new Date(initialData.dateFrom) : undefined,
+    to: initialData.dateTo ? new Date(initialData.dateTo) : undefined
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -53,13 +59,23 @@ export function EventForm({
     }));
   };
 
+  const handleDateRangeChange = (range: DateRange | undefined) => {
+    setDateRange(range);
+  };
+
   const handleSubmit = () => {
+    if (!dateRange?.from) {
+      alert("Please select at least a start date");
+      return;
+    }
+
     // Create a new event object
     const eventData: IEvent = {
       id: initialData.id || crypto.randomUUID(), // Use existing ID or generate a new one
       title: formData.title,
       imageUrl: formData.imageUrl || 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070', // Default image
-      date: new Date(formData.date),
+      dateFrom: dateRange.from,
+      dateTo: dateRange.to,
       location: formData.location,
       status: formData.status,
       createdAt: initialData.createdAt || new Date(),
@@ -125,15 +141,13 @@ export function EventForm({
             <Label htmlFor="date" className="text-right">
               Date
             </Label>
-            <Input
-              id="date"
-              name="date"
-              type="date"
-              value={formData.date}
-              onChange={handleChange}
-              className="col-span-3"
-              required
-            />
+            <div className="col-span-3">
+              <DatePickerWithRange 
+                className="w-full"
+                dateRange={dateRange}
+                onDateRangeChange={handleDateRangeChange}
+              />
+            </div>
           </div>
           
           <div className="grid grid-cols-4 items-center gap-4">
@@ -162,7 +176,7 @@ export function EventForm({
           </Button>
           <Button 
             onClick={handleSubmit}
-            disabled={!formData.title || !formData.location || !formData.date}
+            disabled={!formData.title || !formData.location || !dateRange?.from}
           >
             Save
           </Button>

@@ -2,7 +2,8 @@ export interface IEvent {
   id: string;
   title: string;
   imageUrl: string;
-  date: Date;
+  dateFrom: Date;
+  dateTo?: Date;
   location: string;
   status: 'coming-soon' | 'ongoing' | 'finished';
   createdAt: Date;
