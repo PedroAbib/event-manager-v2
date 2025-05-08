@@ -50,80 +50,98 @@ export function EventDetails() {
     {
       id: '1',
       eventId: event.id,
-      attendeeId: 'att1',
-      status: 'confirmed',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      attendeeDetails: {
-        name: 'John Doe',
-        email: 'john@example.com',
-        phone: '+1 234-567-8900'
-      }
+      registrationId: 'person1',
+      registrationDate: new Date('2024-01-15'),
+      isPaid: true,
+      fullName: 'John Doe',
+      tagName: 'JOHN DOE',
+      workField: 'Software Development',
+      cpf: '123.456.789-00',
+      email: 'john@example.com',
+      phoneNumber: '+1 234-567-8900',
+      address: '123 Main St, San Francisco, CA',
+      postalCode: '94105',
+      status: 'confirmed'
     },
     {
       id: '2',
       eventId: event.id,
-      attendeeId: 'att2',
-      status: 'pending',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      attendeeDetails: {
-        name: 'Jane Smith',
-        email: 'jane@example.com',
-        phone: '+1 234-567-8901'
-      }
+      registrationId: 'person2',
+      registrationDate: new Date('2024-01-20'),
+      isPaid: false,
+      fullName: 'Jane Smith',
+      tagName: 'JANE SMITH',
+      workField: 'UX Design',
+      cpf: '987.654.321-00',
+      email: 'jane@example.com',
+      phoneNumber: '+1 234-567-8901',
+      address: '456 Market St, San Francisco, CA',
+      postalCode: '94103',
+      status: 'pending'
     },
     {
       id: '3',
       eventId: event.id,
-      attendeeId: 'att3',
-      status: 'confirmed',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      attendeeDetails: {
-        name: 'Michael Johnson',
-        email: 'michael@example.com',
-        phone: '+1 234-567-8902'
-      }
+      registrationId: 'person3',
+      registrationDate: new Date('2024-01-18'),
+      isPaid: true,
+      fullName: 'Michael Johnson',
+      tagName: 'MICHAEL JOHNSON',
+      workField: 'Data Science',
+      cpf: '456.789.123-00',
+      email: 'michael@example.com',
+      phoneNumber: '+1 234-567-8902',
+      address: '789 Howard St, San Francisco, CA',
+      postalCode: '94107',
+      status: 'confirmed'
     },
     {
       id: '4',
       eventId: event.id,
-      attendeeId: 'att4',
-      status: 'cancelled',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      attendeeDetails: {
-        name: 'Emily Davis',
-        email: 'emily@example.com',
-        phone: '+1 234-567-8903'
-      }
+      registrationId: 'person4',
+      registrationDate: new Date('2024-01-25'),
+      isPaid: false,
+      fullName: 'Emily Davis',
+      tagName: 'EMILY DAVIS',
+      workField: 'Marketing',
+      cpf: '789.123.456-00',
+      email: 'emily@example.com',
+      phoneNumber: '+1 234-567-8903',
+      address: '101 California St, San Francisco, CA',
+      postalCode: '94111',
+      status: 'cancelled'
     },
     {
       id: '5',
       eventId: event.id,
-      attendeeId: 'att5',
-      status: 'confirmed',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      attendeeDetails: {
-        name: 'Robert Wilson',
-        email: 'robert@example.com',
-        phone: '+1 234-567-8904'
-      }
+      registrationId: 'person5',
+      registrationDate: new Date('2024-01-22'),
+      isPaid: true,
+      fullName: 'Robert Wilson',
+      tagName: 'ROBERT WILSON',
+      workField: 'Project Management',
+      cpf: '321.654.987-00',
+      email: 'robert@example.com',
+      phoneNumber: '+1 234-567-8904',
+      address: '555 Mission St, San Francisco, CA',
+      postalCode: '94105',
+      status: 'confirmed'
     },
     {
       id: '6',
       eventId: event.id,
-      attendeeId: 'att6',
-      status: 'pending',
-      createdAt: new Date(),
-      updatedAt: new Date(),
-      attendeeDetails: {
-        name: 'Sarah Brown',
-        email: 'sarah@example.com',
-        phone: '+1 234-567-8905'
-      }
+      registrationId: 'person6',
+      registrationDate: new Date('2024-01-28'),
+      isPaid: false,
+      fullName: 'Sarah Brown',
+      tagName: 'SARAH BROWN',
+      workField: 'Human Resources',
+      cpf: '654.987.321-00',
+      email: 'sarah@example.com',
+      phoneNumber: '+1 234-567-8905',
+      address: '888 Brannan St, San Francisco, CA',
+      postalCode: '94103',
+      status: 'pending'
     }
   ];
 
@@ -277,7 +295,7 @@ export function EventDetails() {
         <DataTable
           columns={ParticipantsColumns}
           data={participants} 
-          searchColumn="attendeeDetails.name"
+          searchColumn="fullName"
           searchPlaceholder="Search participants..."
         />
       </div>
