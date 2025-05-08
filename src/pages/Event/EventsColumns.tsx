@@ -33,10 +33,9 @@ export const EventsColumns: ColumnDef<IEvent>[] = [
   },
   {
     accessorKey: "dateFrom",
-    header: ({ column }) => <SortableHeader column={column} title="Date" />,
+    header: ({ column }) => <SortableHeader column={column} title="Start Date" />,
     cell: ({ row }) => {
       const dateFrom = row.getValue('dateFrom') as Date;
-      const dateTo = row.original.dateTo as Date | undefined;
       
       const formatDate = (date: Date) => {
         return new Intl.DateTimeFormat('en-US', {
@@ -46,9 +45,26 @@ export const EventsColumns: ColumnDef<IEvent>[] = [
         }).format(date);
       };
       
-      return dateTo 
-        ? `${formatDate(dateFrom)} - ${formatDate(dateTo)}`
-        : formatDate(dateFrom);
+      return formatDate(dateFrom);
+    }
+  },
+  {
+    accessorKey: "dateTo",
+    header: "End Date",
+    cell: ({ row }) => {
+      const dateTo = row.original.dateTo as Date | undefined;
+      
+      if (!dateTo) return "N/A";
+      
+      const formatDate = (date: Date) => {
+        return new Intl.DateTimeFormat('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric'
+        }).format(date);
+      };
+      
+      return formatDate(dateTo);
     }
   },
   {
