@@ -6,6 +6,7 @@ import { EventsColumns } from "./EventsColumns";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
 import { EventForm } from "./EventForm";
+import { DatePickerWithRange } from "@/components/date-picker-range";
 
 function getEvents(): IEvent[] {
   return [
@@ -13,7 +14,8 @@ function getEvents(): IEvent[] {
       id: '1',
       title: 'Tech Conference 2024',
       imageUrl: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070',
-      date: new Date('2024-06-15'),
+      dateFrom: new Date('2024-06-15'),
+      dateTo: new Date('2024-06-17'),
       location: 'San Francisco Convention Center',
       status: 'ongoing',
       createdAt: new Date('2023-12-01'),
@@ -23,7 +25,8 @@ function getEvents(): IEvent[] {
       id: '2',
       title: 'Digital Marketing Summit',
       imageUrl: 'https://images.unsplash.com/photo-1591115765373-5207764f72e4?q=80&w=2070',
-      date: new Date('2024-04-22'),
+      dateFrom: new Date('2024-04-22'),
+      dateTo: new Date('2024-04-24'),
       location: 'New York Hilton',
       status: 'coming-soon',
       createdAt: new Date('2023-11-15'),
@@ -33,7 +36,8 @@ function getEvents(): IEvent[] {
       id: '3',
       title: 'Startup Pitch Night',
       imageUrl: 'https://images.unsplash.com/photo-1551818255-e6e10975bc17?q=80&w=2073',
-      date: new Date('2024-03-30'),
+      dateFrom: new Date('2024-03-30'),
+      dateTo: new Date('2024-03-31'),
       location: 'Austin Innovation Hub',
       status: 'ongoing',
       createdAt: new Date('2023-12-20'),
@@ -43,7 +47,8 @@ function getEvents(): IEvent[] {
       id: '4',
       title: 'Web3 Developer Workshop',
       imageUrl: 'https://images.unsplash.com/photo-1558403194-611308249627?q=80&w=2070',
-      date: new Date('2024-05-10'),
+      dateFrom: new Date('2024-05-10'),
+      dateTo: new Date('2024-05-12'),
       location: 'Miami Tech Center',
       status: 'coming-soon',
       createdAt: new Date('2023-11-30'),
@@ -53,7 +58,8 @@ function getEvents(): IEvent[] {
       id: '5',
       title: 'UX Design Conference',
       imageUrl: 'https://images.unsplash.com/photo-1587440871875-191322ee64b0?q=80&w=2071',
-      date: new Date('2024-07-05'),
+      dateFrom: new Date('2024-07-05'),
+      dateTo: new Date('2024-07-07'),
       location: 'Seattle Design Hub',
       status: 'ongoing',
       createdAt: new Date('2023-12-10'),
@@ -63,7 +69,8 @@ function getEvents(): IEvent[] {
       id: '6',
       title: 'Data Science Symposium',
       imageUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070',
-      date: new Date('2024-08-20'),
+      dateFrom: new Date('2024-08-20'),
+      dateTo: new Date('2024-08-22'),
       location: 'Boston University',
       status: 'finished',
       createdAt: new Date('2023-11-25'),
@@ -73,7 +80,8 @@ function getEvents(): IEvent[] {
       id: '7',
       title: 'AI Ethics Forum',
       imageUrl: 'https://images.unsplash.com/photo-1526378722484-bd91ca387e72?q=80&w=2069',
-      date: new Date('2024-09-12'),
+      dateFrom: new Date('2024-09-12'),
+      dateTo: new Date('2024-09-14'),
       location: 'Toronto Convention Center',
       status: 'coming-soon',
       createdAt: new Date('2024-01-05'),
@@ -83,7 +91,8 @@ function getEvents(): IEvent[] {
       id: '8',
       title: 'Cybersecurity Summit',
       imageUrl: 'https://images.unsplash.com/photo-1563986768609-322da13575f3?q=80&w=2070',
-      date: new Date('2024-10-18'),
+      dateFrom: new Date('2024-10-18'),
+      dateTo: new Date('2024-10-20'),
       location: 'Chicago Tech Campus',
       status: 'coming-soon',
       createdAt: new Date('2024-01-15'),
@@ -129,7 +138,6 @@ export function Events() {
           Add New Event
         </Button>
       </div>
-      
       <DataTable 
         columns={EventsColumns} 
         data={events} 
