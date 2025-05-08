@@ -37,7 +37,8 @@ export function EventDetails() {
     id: id ?? '1',
     title: 'Tech Conference 2024',
     imageUrl: 'https://images.unsplash.com/photo-1540575467063-178a50c2df87?q=80&w=2070',
-    date: new Date('2024-06-15'),
+    dateFrom: new Date('2024-06-15'),
+    dateTo: new Date('2024-06-17'),
     location: 'San Francisco Convention Center',
     status: 'ongoing',
     createdAt: new Date('2023-12-01'),
@@ -233,7 +234,10 @@ export function EventDetails() {
                   <div className='flex-col gap-2 flex'>
                     <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
                     <Calendar className="h-4 w-4" />
-                    <span>{new Date(event.date).toLocaleDateString()}</span>
+                    <span>
+                      {new Date(event.dateFrom).toLocaleDateString()}
+                      {event.dateTo && ` - ${new Date(event.dateTo).toLocaleDateString()}`}
+                    </span>
                     </div>
 
                     <div className="flex items-center gap-2 text-gray-600 dark:text-gray-400">
