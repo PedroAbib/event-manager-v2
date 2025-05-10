@@ -208,6 +208,7 @@ export function Registrations() {
                     Cancel
                   </Button>
                   <Button type="submit">
+                    <Edit className="h-4 w-4" />
                     Save Changes
                   </Button>
                 </div>
