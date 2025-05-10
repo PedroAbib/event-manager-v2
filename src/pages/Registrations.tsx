@@ -1,11 +1,20 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { IRegistration } from "@/types";
 import { DataTable } from "@/components/ui/data-table";
 import { RegistrationsColumns } from "@/pages/RegistrationsColumns";
 import { Button } from "@/components/ui/button";
-import { PlusCircle } from "lucide-react";
+import { PlusCircle, Edit, Trash2 } from "lucide-react";
 import { RegistrationForm } from "@/pages/RegistrationForm";
+import { 
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog";
 
 function getRegistrations(): IRegistration[] {
   return [
@@ -87,7 +96,9 @@ function getRegistrations(): IRegistration[] {
 export function Registrations() {
   const [registrations, setRegistrations] = useState<IRegistration[]>([]);
   const [isAddModalOpen, setIsAddModalOpen] = useState(false);
-  const navigate = useNavigate();
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [isDeleteDialogOpen, setIsDeleteDialogOpen] = useState(false);
+  const [selectedRegistration, setSelectedRegistration] = useState<IRegistration | null>(null);
   
   useEffect(() => {
     const registrationData = getRegistrations();
@@ -95,16 +106,53 @@ export function Registrations() {
   }, []);
 
   const handleRowClick = (registration: IRegistration) => {
-    navigate(`/registrations/${registration.id}`);
+    setSelectedRegistration(registration);
+    setIsEditModalOpen(true);
   };
 
   const handleAddNew = () => {
+    setSelectedRegistration(null);
     setIsAddModalOpen(true);
   };
 
   const handleSaveRegistration = (registration: IRegistration) => {
-    setRegistrations(prevRegistrations => [registration, ...prevRegistrations]);
+    if (selectedRegistration) {
+      // Update existing registration
+      setRegistrations(prevRegistrations => 
+        prevRegistrations.map(reg => 
+          reg.id === registration.id ? registration : reg
+        )
+      );
+    } else {
+      // Add new registration
+      setRegistrations(prevRegistrations => [registration, ...prevRegistrations]);
+    }
     setIsAddModalOpen(false);
+    setIsEditModalOpen(false);
+  };
+
+  const handleEditClose = () => {
+    setIsEditModalOpen(false);
+    setSelectedRegistration(null);
+  };
+
+  const handleDeleteClick = () => {
+    setIsDeleteDialogOpen(true);
+  };
+
+  const handleDeleteConfirm = () => {
+    if (selectedRegistration) {
+      setRegistrations(prevRegistrations => 
+        prevRegistrations.filter(reg => reg.id !== selectedRegistration.id)
+      );
+      setIsDeleteDialogOpen(false);
+      setIsEditModalOpen(false);
+      setSelectedRegistration(null);
+    }
+  };
+
+  const handleDeleteCancel = () => {
+    setIsDeleteDialogOpen(false);
   };
 
   return (
@@ -127,6 +175,7 @@ export function Registrations() {
         searchPlaceholder="Search registrations..."
       />
       
+      {/* Add Registration Modal */}
       {isAddModalOpen && (
         <RegistrationForm
           open={isAddModalOpen}
@@ -134,6 +183,61 @@ export function Registrations() {
           onSave={handleSaveRegistration}
         />
       )}
+
+      {/* Edit Registration Modal */}
+      {isEditModalOpen && selectedRegistration && (
+        <div>
+          <RegistrationForm
+            open={isEditModalOpen}
+            onClose={handleEditClose}
+            onSave={handleSaveRegistration}
+            initialData={selectedRegistration}
+            title="Edit Registration"
+            footer={
+              <div className="flex justify-between w-full">
+                <Button 
+                  variant="destructive" 
+                  onClick={handleDeleteClick}
+                  className="flex items-center gap-2"
+                >
+                  <Trash2 className="h-4 w-4" />
+                  Delete
+                </Button>
+                <div className="flex gap-2">
+                  <Button variant="outline" onClick={handleEditClose}>
+                    Cancel
+                  </Button>
+                  <Button type="submit">
+                    Save Changes
+                  </Button>
+                </div>
+              </div>
+            }
+          />
+        </div>
+      )}
+
+      {/* Delete Confirmation Dialog */}
+      <AlertDialog open={isDeleteDialogOpen} onOpenChange={setIsDeleteDialogOpen}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>Are you sure?</AlertDialogTitle>
+            <AlertDialogDescription>
+              This will permanently delete the registration for {selectedRegistration?.fullName}.
+              This action cannot be undone.
+            </AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel onClick={handleDeleteCancel}>Cancel</AlertDialogCancel>
+            <AlertDialogAction 
+              onClick={handleDeleteConfirm}
+              className="bg-red-600 hover:bg-red-700"
+            >
+              Delete
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
     </div>
   );
 }
