@@ -24,7 +24,7 @@ export function RegistrationForm({
   onClose, 
   onSave, 
   initialData = {}, 
-  title = "Add New Registration" 
+  title = "New Registration" 
 }: RegistrationFormProps) {
   const [formData, setFormData] = useState({
     fullName: initialData.fullName || '',
