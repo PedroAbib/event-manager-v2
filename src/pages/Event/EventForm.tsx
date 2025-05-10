@@ -33,7 +33,7 @@ export function EventForm({
   onClose, 
   onSave, 
   initialData = {}, 
-  title = "Add New Event" 
+  title = "New Event" 
 }: EventFormProps) {
   const [formData, setFormData] = useState({
     title: initialData.title || '',

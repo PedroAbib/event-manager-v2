@@ -119,8 +119,6 @@ export function Events() {
   };
 
   const handleSaveEvent = (event: IEvent) => {
-    // In a real app, you would make an API call here
-    // For now, we'll just add it to our local state
     setEvents(prevEvents => [event, ...prevEvents]);
     setIsAddModalOpen(false);
   };
@@ -134,7 +132,7 @@ export function Events() {
           className="flex items-center gap-2 bg-green-700 hover:bg-green-600 text-white"
         >
           <PlusCircle className="h-4 w-4" />
-          Add New Event
+          New Event
         </Button>
       </div>
       <DataTable 
