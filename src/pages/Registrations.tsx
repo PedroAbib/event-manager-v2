@@ -116,7 +116,7 @@ export function Registrations() {
           className="flex items-center gap-2 bg-green-700 hover:bg-green-600 text-white"
         >
           <PlusCircle className="h-4 w-4" />
-          Add New Registration
+          New Registration
         </Button>
       </div>
       <DataTable 
