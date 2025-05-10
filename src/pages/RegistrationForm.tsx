@@ -17,6 +17,7 @@ interface RegistrationFormProps {
   onSave: (registration: IRegistration) => void;
   initialData?: Partial<IRegistration>;
   title?: string;
+  footer?: React.ReactNode;
 }
 
 export function RegistrationForm({ 
@@ -24,7 +25,8 @@ export function RegistrationForm({
   onClose, 
   onSave, 
   initialData = {}, 
-  title = "New Registration" 
+  title = "New Registration",
+  footer
 }: RegistrationFormProps) {
   const [formData, setFormData] = useState({
     fullName: initialData.fullName || '',
@@ -188,15 +190,21 @@ export function RegistrationForm({
         </div>
         
         <DialogFooter>
-          <Button type="button" variant="outline" onClick={onClose}>
-            Cancel
-          </Button>
-          <Button type="button"
-            onClick={handleSubmit}
-            disabled={!formData.fullName || !formData.email || !formData.cpf}
-          >
-            Save
-          </Button>
+          {footer ? (
+            footer
+          ) : (
+            <>
+              <Button type="button" variant="outline" onClick={onClose}>
+                Cancel
+              </Button>
+              <Button type="button"
+                onClick={handleSubmit}
+                disabled={!formData.fullName || !formData.email || !formData.cpf}
+              >
+                Save
+              </Button>
+            </>
+          )}
         </DialogFooter>
       </DialogContent>
     </Dialog>
