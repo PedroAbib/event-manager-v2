@@ -6,6 +6,7 @@ import { Registrations } from "./pages/Registrations";
 import { Events } from "./pages/Event/Events";
 import { EventDetails } from "./pages/Event/EventDetails";
 import { ThemeProvider } from "./components/theme-provider";
+import { Toaster } from "@/components/ui/sonner";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
                 </Routes>
               </div>
             </main>
+            <Toaster />
           </div>
         </SidebarProvider>
       </BrowserRouter>

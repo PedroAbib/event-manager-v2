@@ -1,11 +1,12 @@
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { IEvent } from "@/types";
 import { DataTable } from "@/components/ui/data-table";
 import { EventsColumns } from "./EventsColumns";
 import { Button } from "@/components/ui/button";
 import { PlusCircle } from "lucide-react";
-import { EventForm } from "./EventForm";
+import { EventForm } from "@/pages/Event/EventForm";
+import { toast } from "@/components/ui/sonner";
 
 function getEvents(): IEvent[] {
   return [
@@ -119,7 +120,23 @@ export function Events() {
   };
 
   const handleSaveEvent = (event: IEvent) => {
-    setEvents(prevEvents => [event, ...prevEvents]);
+    // Check if it's an update or new event
+    const isUpdate = events.some(e => e.id === event.id);
+    
+    if (isUpdate) {
+      setEvents(prevEvents => 
+        prevEvents.map(e => e.id === event.id ? event : e)
+      );
+      toast.success("Event updated", {
+        description: `"${event.title}" has been updated successfully.`,
+      });
+    } else {
+      setEvents(prevEvents => [event, ...prevEvents]);
+      toast.success("Event created", {
+        description: `"${event.title}" has been created successfully.`,
+      });
+    }
+    
     setIsAddModalOpen(false);
   };
 

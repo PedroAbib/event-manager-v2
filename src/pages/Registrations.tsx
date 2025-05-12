@@ -5,6 +5,7 @@ import { RegistrationsColumns } from "@/pages/RegistrationsColumns";
 import { Button } from "@/components/ui/button";
 import { PlusCircle, Edit, Trash2 } from "lucide-react";
 import { RegistrationForm } from "@/pages/RegistrationForm";
+import { toast } from "../components/ui/sonner";
 import { 
   AlertDialog,
   AlertDialogAction,
@@ -123,9 +124,15 @@ export function Registrations() {
           reg.id === registration.id ? registration : reg
         )
       );
+      toast.success("Registration updated successfully", {
+        description: `${registration.fullName}'s information has been updated.`,
+      });
     } else {
       // Add new registration
       setRegistrations(prevRegistrations => [registration, ...prevRegistrations]);
+      toast.success("Registration created successfully", {
+        description: `${registration.fullName} has been registered.`,
+      });
     }
     setIsAddModalOpen(false);
     setIsEditModalOpen(false);
@@ -145,6 +152,11 @@ export function Registrations() {
       setRegistrations(prevRegistrations => 
         prevRegistrations.filter(reg => reg.id !== selectedRegistration.id)
       );
+      
+      toast.success("Registration deleted", {
+        description: `${selectedRegistration.fullName}'s registration has been removed.`,
+      });
+      
       setIsDeleteDialogOpen(false);
       setIsEditModalOpen(false);
       setSelectedRegistration(null);
