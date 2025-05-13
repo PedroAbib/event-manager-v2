@@ -12,7 +12,11 @@ import {
 import { Button } from "@/components/ui/button";
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { 
+import { EventForm } from "@/pages/Event/EventForm";
+import { DataTable } from "@/components/ui/data-table";
+import { ParticipantsColumns } from '../ParticipantsColumns';
+import { toast } from "@/components/ui/sonner";
+import {
   AlertDialog,
   AlertDialogAction,
   AlertDialogCancel,
@@ -22,9 +26,6 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog";
-import { EventForm } from './EventForm';
-import { DataTable } from '@/components/ui/data-table';
-import { ParticipantsColumns } from '../ParticipantsColumns';
 
 export function EventDetails() {
   const { id } = useParams<{ id: string }>();
@@ -156,6 +157,9 @@ export function EventDetails() {
   const confirmDeleteEvent = () => {
     // TODO: Implement actual delete API call
     console.log('Deleting event:', event.id);
+    toast.success("Event deleted", {
+      description: `"${event.title}" has been permanently deleted.`,
+    });
     navigate('/events');
   };
 
